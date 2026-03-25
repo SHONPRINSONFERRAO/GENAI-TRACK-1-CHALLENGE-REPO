@@ -1,51 +1,86 @@
-# Gemini Summarization Agent
+# 🤖 Gemini Summarization Agent
 
-A serverless AI agent built using the Google Agent Development Kit (ADK) and the Gemini 2.5 Flash model via Google Cloud Vertex AI. The agent focuses on a single task: intelligently summarizing lengthy text inputs. It is designed to be deployed directly to Google Cloud Run.
+[![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com/)
+[![Gemini](https://img.shields.io/badge/Gemini_2.5_Flash-8E75B2?style=for-the-badge&logo=google-gemini&logoColor=white)](https://deepmind.google/technologies/gemini/)
 
-Features
-This agent supports summarizing text in three distinct styles:
+A high-performance, serverless AI agent built using the **Google Agent Development Kit (ADK)**. This agent leverages **Gemini 2.5 Flash** via Vertex AI to provide intelligent, context-aware summarization for lengthy text inputs.
 
-* concise (Default): A brief 2-3 sentence professional summary highlighting the core message.
-* bullet points: Key findings and takeaways presented as an easy-to-read list.
-* eli5: (Explain Like I'm 5) An explanation simplified using easy-to-understand analogies and language suitable for a young audience.
+---
 
-# Usage & Examples
+## 🏗️ System Architecture
 
-Example Input Text
+```mermaid
+graph LR
+    A[HTTP Request] -- "POST /run_sse" --> B(Cloud Run)
+    B -- "Invoke" --> C(ADK Agent)
+    C -- "Request" --> D{Gemini 2.5 Flash}
+    D -- "Summary" --> C
+    C -- "Response" --> B
+    B -- "JSON" --> A
+    
+    style D fill:#8E75B2,stroke:#fff,color:#fff
+    style C fill:#34A853,stroke:#fff,color:#fff
+    style B fill:#4285F4,stroke:#fff,color:#fff
+```
 
-## Responses Based on Style Options
-### 1. Option: concise (Default)
+## 🌟 Key Features
 
-#### Request:
+⚡ Gemini 2.5 Flash Powered: Optimized for speed and efficiency without sacrificing summary quality.
 
-"The Google Agent Development Kit (ADK) is an open-source framework designed to simplify the creation, deployment, and management of AI agents. Built with a focus on modularity and flexibility, the ADK abstracts away much of the boilerplate code typically required to integrate large language models (LLMs) into applications. It provides built-in support for various model providers, most notably the Google Gemini family, and offers seamless integration with Google Cloud services like Vertex AI and Cloud Run. By standardizing agent interfaces and deployment pipelines, the ADK enables developers to focus on defining their agents' core logic and instructions rather than wrestling with infrastructure."
+☁️ Cloud Native: Designed for native execution on Google Cloud Run.
+
+🎯 Multi-Style Summarization: Supports three distinct output modes (Concise, Bullet Points, and ELI5).
+
+🛠️ Modular Design: Built using the ADK to minimize boilerplate and maximize extensibility.
+
+## 🎨 Summarization Styles
+
+```bash
+Concise: 2-3 professional sentences (Default) 
+```
+
+```bash
+Bullet Points: A structured list of key findings and takeaways
+```
+
+```bash
+ELI5: Explain Like I'm 5" using simple analogies
+```
+
+## 🚀 Usage Examples
+
+### 1. Concise (Default)
+
+#### Request: 
+The Google Agent Development Kit (ADK) is an open-source framework designed to simplify the creation, deployment, and management of AI agents. Built with a focus on modularity and flexibility, the ADK abstracts away much of the boilerplate code typically required to integrate large language models (LLMs) into applications. It provides built-in support for various model providers, most notably the Google Gemini family, and offers seamless integration with Google Cloud services like Vertex AI and Cloud Run. By standardizing agent interfaces and deployment pipelines, the ADK enables developers to focus on defining their agents' core logic and instructions rather than wrestling with infrastructure.
+
+#### Response: 
+The Google Agent Development Kit (ADK) is an open-source framework that simplifies the creation, deployment, and management of AI agents. It reduces boilerplate code for integrating large language models (LLMs) and supports Google Gemini and Google Cloud services. The ADK streamlines development by standardizing agent interfaces, allowing developers to focus on core agent logic.
+
+### 2. Bullet Points
+
+#### Request: 
+Summarize using bullet points 
+
+The Google Agent Development Kit (ADK) is an open-source framework designed to simplify the creation, deployment, and management of AI agents. Built with a focus on modularity and flexibility, the ADK abstracts away much of the boilerplate code typically required to integrate large language models (LLMs) into applications. It provides built-in support for various model providers, most notably the Google Gemini family, and offers seamless integration with Google Cloud services like Vertex AI and Cloud Run. By standardizing agent interfaces and deployment pipelines, the ADK enables developers to focus on defining their agents' core logic and instructions rather than wrestling with infrastructure.
 
 #### Response:
+* The Google Agent Development Kit (ADK) is an open-source framework.
+* It simplifies the creation, deployment, and management of AI agents.
+* The ADK abstracts away boilerplate code for integrating Large Language Models (LLMs).
+* It supports various model providers, including Google Gemini.
+* It integrates seamlessly with Google Cloud services like Vertex AI and Cloud Run.
+* The ADK standardizes agent interfaces and deployment pipelines.
+* It allows developers to focus on an agent's core logic and instructions.
 
-The Google Agent Development Kit (ADK) is an open-source framework that simplifies building and deploying AI agents by abstracting complex boilerplate code. It seamlessly integrates with Gemini models and Google Cloud services like Vertex AI and Cloud Run. This allows developers to focus on core agent logic rather than infrastructure management.
+### 2. Eli5
 
-### 2. Option: bullet_points
-
-#### Request:
-
-"The Google Agent Development Kit (ADK) is an open-source framework designed to simplify the creation, deployment, and management of AI agents. Built with a focus on modularity and flexibility, the ADK abstracts away much of the boilerplate code typically required to integrate large language models (LLMs) into applications. It provides built-in support for various model providers, most notably the Google Gemini family, and offers seamless integration with Google Cloud services like Vertex AI and Cloud Run. By standardizing agent interfaces and deployment pipelines, the ADK enables developers to focus on defining their agents' core logic and instructions rather than wrestling with infrastructure."
-
-Summarize using bullet points
-
-#### Response:
-
-* The Google ADK is an open-source framework for creating and managing AI agents out of the box.
-* It removes the need for complex boilerplate code and integrates natively with Gemini and Google Cloud.
-* Developers can prioritize writing agent instructions instead of managing the underlying infrastructure.
-
-### 3. Option: eli5
-
-#### Request:
-
-"The Google Agent Development Kit (ADK) is an open-source framework designed to simplify the creation, deployment, and management of AI agents. Built with a focus on modularity and flexibility, the ADK abstracts away much of the boilerplate code typically required to integrate large language models (LLMs) into applications. It provides built-in support for various model providers, most notably the Google Gemini family, and offers seamless integration with Google Cloud services like Vertex AI and Cloud Run. By standardizing agent interfaces and deployment pipelines, the ADK enables developers to focus on defining their agents' core logic and instructions rather than wrestling with infrastructure."
-
+#### Request: 
 Summarize using eli5
 
-#### Response:
+The Google Agent Development Kit (ADK) is an open-source framework designed to simplify the creation, deployment, and management of AI agents. Built with a focus on modularity and flexibility, the ADK abstracts away much of the boilerplate code typically required to integrate large language models (LLMs) into applications. It provides built-in support for various model providers, most notably the Google Gemini family, and offers seamless integration with Google Cloud services like Vertex AI and Cloud Run. By standardizing agent interfaces and deployment pipelines, the ADK enables developers to focus on defining their agents' core logic and instructions rather than wrestling with infrastructure.
 
-Imagine building a robot. Usually, you have to build all its parts from scratch, tighten every bolt, and wire the battery. The Google ADK is like a giant box of pre-built robot parts that fit perfectly together with Google's super-smart brain (Gemini). It lets you focus entirely on teaching your robot what to do instead of figuring out how to build it!
+#### Response:
+Imagine you want to build a super cool robot friend. The Google ADK is like a special box of LEGOs that makes it super easy to build your robot. It has all the pieces you need so you don't have to build them yourself, and it helps your robot brain (called an LLM, like Google Gemini) talk to other computer toys. This way, you can just focus on what awesome things your robot friend will do!
+
+## Created by Shon Ferrao
